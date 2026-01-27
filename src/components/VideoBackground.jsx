@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 
 const MOBILE_VIDEO = import.meta.env.BASE_URL + 'VHS_Cassette_Player_Loop_Generation.mp4'
 
-export default function VideoBackground({ videoFile }) {
+export default function Background({ mediaFile, isImage = false }) {
   const [isMobile, setIsMobile] = useState(false)
   const videoRef = useRef(null)
 
@@ -17,7 +17,18 @@ export default function VideoBackground({ videoFile }) {
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
-  const src = isMobile ? MOBILE_VIDEO : videoFile
+  // If image, show image background
+  if (isImage) {
+    return (
+      <div
+        className="fixed inset-0 w-full h-full bg-cover bg-center bg-no-repeat video-filter"
+        style={{ backgroundImage: `url(${mediaFile})` }}
+      />
+    )
+  }
+
+  // Otherwise show video
+  const src = isMobile ? MOBILE_VIDEO : mediaFile
 
   return (
     <video

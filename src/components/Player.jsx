@@ -1,11 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { FaPlay, FaPause, FaExclamationTriangle, FaRedo } from 'react-icons/fa'
 
-const STREAM_URL = 'https://stream.radiotedu.com/lofi'
-// const STREAM_URL = 'https://stream.radiotedu.com/cazz'
-// const STREAM_URL = 'https://stream.radiotedu.com/classical'
-
-export default function Player({ crossfaderValue = 50 }) {
+export default function Player({ crossfaderValue = 50, streamUrl }) {
   // Helper function: Calculate player volume with crossfader effect
   function calculatePlayerVolume(volume, crossfaderValue) {
     return volume * ((100 - crossfaderValue) / 100)
@@ -62,6 +58,21 @@ export default function Player({ crossfaderValue = 50 }) {
     }
   }, [])
 
+  // Stream URL değiştiğinde audio reload et
+  useEffect(() => {
+    const audio = audioRef.current
+    if (!audio || !streamUrl) return
+
+    setLoading(true)
+    setStreamError(false)
+    audio.load()
+    audio.play().then(() => {
+      setPlaying(true)
+    }).catch(() => {
+      setPlaying(false)
+    })
+  }, [streamUrl])
+
   // 🔹 Crossfader veya kullanıcı volume değiştiğinde gerçek çıkış volumesını uygula
   useEffect(() => {
     if (audioRef.current) {
@@ -104,7 +115,7 @@ export default function Player({ crossfaderValue = 50 }) {
 
   return (
     <div className="flex items-center gap-2 sm:gap-4 flex-wrap">
-      <audio ref={audioRef} src={STREAM_URL} autoPlay />
+      <audio ref={audioRef} src={streamUrl} autoPlay />
 
       {/* Controls group */}
       <div className="flex items-center gap-2 sm:gap-3">
@@ -113,13 +124,6 @@ export default function Player({ crossfaderValue = 50 }) {
           <div className="flex items-center gap-2 text-yellow-400 text-xs">
             <FaExclamationTriangle size={12} />
             <span className="hidden sm:inline">Stream unavailable</span>
-            <button
-              onClick={retryStream}
-              className="player-control px-2 py-1 text-[10px]"
-              title="Retry stream"
-            >
-              <FaRedo size={10} />
-            </button>
           </div>
         )}
 
@@ -136,6 +140,15 @@ export default function Player({ crossfaderValue = 50 }) {
           disabled={streamError}
         >
           {playing ? <FaPause size={14} /> : <FaPlay size={14} />}
+        </button>
+
+        {/* Always visible restart button */}
+        <button
+          onClick={retryStream}
+          className="player-control"
+          title="Restart stream"
+        >
+          <FaRedo size={12} />
         </button>
       </div>
 

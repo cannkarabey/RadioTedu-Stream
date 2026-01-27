@@ -2,8 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Classical Music Theme - Warm & Sophisticated */
-:root {
+/* Theme System - CSS Variables */
+
+/* Default / Classical Theme - Warm & Sophisticated */
+:root,
+[data-theme="classical"] {
   --bg-dark: #1a1a1f;
   --bg-secondary: #252528;
   --cream: #f5f0e8;
@@ -12,6 +15,136 @@
   --gold-light: #d9bc72;
   --icon-color: #a8a29e;
   --border-subtle: rgba(201, 169, 98, 0.2);
+  --accent-glow: rgba(201, 169, 98, 0.4);
+}
+
+/* Jazz Theme - Cool Blue / Night vibes */
+[data-theme="jazz"] {
+  --bg-dark: #0d1b2a;
+  --bg-secondary: #1b263b;
+  --cream: #e0e1dd;
+  --warm-gray: #778da9;
+  --gold: #4a9eff;
+  --gold-light: #7ab8ff;
+  --icon-color: #778da9;
+  --border-subtle: rgba(74, 158, 255, 0.2);
+  --accent-glow: rgba(74, 158, 255, 0.4);
+}
+
+/* Lo-Fi Theme - Purple/Pink aesthetic */
+[data-theme="lofi"] {
+  --bg-dark: #1a1423;
+  --bg-secondary: #2d2438;
+  --cream: #fae8e8;
+  --warm-gray: #a89db0;
+  --gold: #ff6b9d;
+  --gold-light: #ff8fb3;
+  --icon-color: #a89db0;
+  --border-subtle: rgba(255, 107, 157, 0.2);
+  --accent-glow: rgba(255, 107, 157, 0.4);
+  /* Lo-Fi specific */
+  --font-heading: 'Space Mono', monospace;
+  --font-body: 'Space Mono', monospace;
+  --border-radius: 2px;
+  --glow-strength: 0 0 20px var(--gold);
+}
+
+/* ===========================================
+   THEME-SPECIFIC TYPOGRAPHY & EFFECTS
+   =========================================== */
+
+/* Classical Theme - Elegant serif typography */
+[data-theme="classical"] {
+  --font-heading: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Lato', system-ui, sans-serif;
+  --border-radius: 4px;
+  --glow-strength: none;
+}
+
+[data-theme="classical"] .font-heading {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* Jazz Theme - Bold, cool typography */
+[data-theme="jazz"] {
+  --font-heading: 'Bebas Neue', Impact, sans-serif;
+  --font-body: 'Lato', system-ui, sans-serif;
+  --border-radius: 8px;
+  --glow-strength: 0 0 15px var(--gold);
+}
+
+[data-theme="jazz"] .font-heading {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* Lo-Fi Theme - Retro monospace */
+[data-theme="lofi"] .font-heading {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-shadow: var(--glow-strength);
+}
+
+/* Theme-specific button styles */
+[data-theme="classical"] .player-control,
+[data-theme="classical"] .channel-btn {
+  border-radius: 4px;
+  font-family: 'Lato', sans-serif;
+}
+
+[data-theme="jazz"] .player-control,
+[data-theme="jazz"] .channel-btn {
+  border-radius: 8px;
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 0.1em;
+}
+
+[data-theme="lofi"] .player-control,
+[data-theme="lofi"] .channel-btn {
+  border-radius: 2px;
+  font-family: 'Space Mono', monospace;
+  box-shadow: var(--glow-strength);
+}
+
+[data-theme="lofi"] .player-control:hover,
+[data-theme="lofi"] .channel-btn:hover {
+  box-shadow: 0 0 25px var(--gold);
+}
+
+/* Lo-Fi Neon Glow Animation */
+@keyframes neon-pulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 10px var(--gold), 0 0 20px var(--gold);
+    opacity: 1;
+  }
+
+  50% {
+    box-shadow: 0 0 20px var(--gold), 0 0 40px var(--gold);
+    opacity: 0.9;
+  }
+}
+
+[data-theme="lofi"] .channel-btn.active {
+  animation: neon-pulse 2s ease-in-out infinite;
+}
+
+/* Jazz smooth transition */
+[data-theme="jazz"] .player-control,
+[data-theme="jazz"] .channel-btn {
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Classical elegant transition */
+[data-theme="classical"] .player-control,
+[data-theme="classical"] .channel-btn {
+  transition: all 0.3s ease;
 }
 
 html,
@@ -106,6 +239,42 @@ body {
   background: rgba(201, 169, 98, 0.15);
   border-color: var(--gold);
   color: var(--gold);
+}
+
+/* Channel switcher buttons */
+.channel-btn {
+  background: transparent;
+  border: 1px solid var(--warm-gray);
+  color: var(--cream);
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.channel-btn:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: var(--accent-glow);
+}
+
+.channel-btn.active {
+  background: var(--accent-glow);
+  border-color: var(--gold);
+  color: var(--gold);
+  font-weight: 500;
+}
+
+@media (min-width: 640px) {
+  .channel-btn {
+    padding: 5px 12px;
+    font-size: 12px;
+  }
 }
 
 /* Pulse animation for dot */

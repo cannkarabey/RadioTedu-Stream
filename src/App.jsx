@@ -1,25 +1,30 @@
 import React, { useState, useEffect } from 'react'
 import VideoBackground from './components/VideoBackground'
 import Player from './components/Player'
+import ChannelSwitcher from './components/ChannelSwitcher'
 import { FaTimes, FaFacebookF, FaTwitter, FaYoutube, FaHeart, FaHome } from 'react-icons/fa'
 import Pomodoro from './components/Pomodoro'
 import Nature from './components/Nature'
 import Crossfader from './components/Crossfader'
+import { CHANNELS, DEFAULT_CHANNEL } from './channelConfig'
 
 
 export default function App() {
-  // Visual backgrounds list; can expand easily
-  // Add new visual assets here (ensure files exist in /public)
-  const visuals = [import.meta.env.BASE_URL + 'VHS_Cassette_Player_Loop_Generation.mp4',
-  import.meta.env.BASE_URL + 'classical.mp4',
-  import.meta.env.BASE_URL + 'video.mp4',]
-
-  const [visualIndex, setVisualIndex] = useState(0)
+  const [currentChannel, setCurrentChannel] = useState(DEFAULT_CHANNEL)
   const [showLove, setShowLove] = useState(false)
   const [showNatureSounds, setShowNatureSounds] = useState(false)
   const [crossfaderValue, setCrossfaderValue] = useState(50)
 
+  // Get current channel data
+  const channel = CHANNELS[currentChannel]
+  const currentBackground = import.meta.env.BASE_URL + channel.background
+  const currentStreamUrl = channel.streamUrl
+  const isImage = channel.isImage
 
+  // Apply theme when channel changes
+  useEffect(() => {
+    document.documentElement.dataset.theme = channel.theme
+  }, [currentChannel, channel.theme])
 
   // Auto hide love message after a few seconds
   useEffect(() => {
@@ -28,25 +33,28 @@ export default function App() {
     return () => clearTimeout(t)
   }, [showLove])
 
-  const cycleVisual = () => setVisualIndex(i => (i + 1) % visuals.length)
+  const handleChannelChange = (channelId) => {
+    setCurrentChannel(channelId)
+  }
 
   return (
     <div className="relative min-h-full bg-bg-dark font-sans text-cream">
-      <VideoBackground videoFile={visuals[visualIndex]} />
+      <VideoBackground mediaFile={currentBackground} isImage={isImage} />
 
       {/* Dark overlay */}
       <div className="absolute inset-0 bg-bg-dark/60"></div>
 
       {/* Top header */}
       <header className="relative z-10 flex justify-between items-start p-4 sm:p-6">
-        {/* Top left - change visual button */}
-        <div className="flex flex-col items-start gap-2">
-          <button onClick={cycleVisual} className="player-control text-xs sm:text-sm px-3 py-1"
-            title="Change background visual">
-            change visual
-          </button>
+        {/* Top left - channel switcher and controls */}
+        <div className="flex flex-col items-start gap-3">
+          {/* Channel Switcher */}
+          <ChannelSwitcher
+            currentChannel={currentChannel}
+            onChannelChange={handleChannelChange}
+          />
 
-          {/* ⬇️ YENİ BUTONU BURAYA EKLEYİN */}
+          {/* Nature sounds button */}
           <button
             onClick={() => setShowNatureSounds(true)}
             className="player-control text-xs sm:text-sm px-3 py-1"
@@ -57,7 +65,7 @@ export default function App() {
           <Nature
             showNatureSounds={showNatureSounds}
             setShowNatureSounds={setShowNatureSounds}
-            crossfaderValue={crossfaderValue}   // 🔹 crossfaderValue ekleme
+            crossfaderValue={crossfaderValue}
           />
         </div>
 
@@ -111,13 +119,13 @@ export default function App() {
       {/* Bottom player area */}
       <footer className="absolute bottom-0 left-0 right-0 z-10 p-4 sm:p-6">
         <div className="mb-3 sm:mb-4 text-left flex items-center gap-3">
-          <span className="text-cream font-heading text-xl sm:text-2xl">radiotedu / classical</span>
+          <span className="text-cream font-heading text-xl sm:text-2xl">radiotedu / {channel.name.toLowerCase()}</span>
           <span className="text-gold text-sm sm:text-base font-sans animate-pulse">
             on-air
           </span>
         </div>
         <div className="mb-3 sm:mb-4">
-          <Player crossfaderValue={crossfaderValue} />
+          <Player crossfaderValue={crossfaderValue} streamUrl={currentStreamUrl} />
         </div>
 
         {/* Mobile: Stack utilities below player */}
