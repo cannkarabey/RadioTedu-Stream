@@ -38,14 +38,14 @@ export default function App() {
   }
 
   return (
-    <div className="relative min-h-full bg-bg-dark font-sans text-cream">
+    <div className="relative min-h-screen flex flex-col bg-bg-dark font-sans text-cream">
       <VideoBackground mediaFile={currentBackground} isImage={isImage} />
 
       {/* Dark overlay */}
       <div className="absolute inset-0 bg-bg-dark/60"></div>
 
       {/* Top header */}
-      <header className="relative z-10 flex justify-between items-start p-4 sm:p-6">
+      <header className="relative z-10 flex flex-col sm:flex-row sm:justify-between items-start gap-3 sm:gap-0 p-4 sm:p-6">
         {/* Top left - channel switcher and controls */}
         <div className="flex flex-col items-start gap-3">
           {/* Channel Switcher */}
@@ -108,8 +108,8 @@ export default function App() {
             </div>
           )}
 
-          {/* Beta notice */}
-          <div className="text-[11px] sm:text-sm leading-snug text-right opacity-90 max-w-[260px] font-mono">
+          {/* Beta notice - hidden on mobile */}
+          <div className="hidden sm:block text-[11px] sm:text-sm leading-snug text-right opacity-90 max-w-[260px] font-mono">
             <span className="uppercase tracking-widest text-yellow-300 mr-2 text-[12px] sm:text-sm font-bold">beta</span>
             <div className="inline text-glow-subtle">any recommendations? send an email us! <a href="mailto:radio@tedu.edu.tr" className="underline hover:text-glow-ui">radio@tedu.edu.tr</a></div>
           </div>
@@ -117,36 +117,43 @@ export default function App() {
       </header>
 
       {/* Bottom player area */}
-      <footer className="absolute bottom-0 left-0 right-0 z-10 p-4 sm:p-6">
+      <footer className="relative lg:absolute lg:bottom-0 lg:left-0 lg:right-0 z-10 p-4 sm:p-6 mt-auto">
+
+        {/* Mobile/Tablet: Stack utilities ABOVE player - left aligned like player */}
+        <div className="flex flex-col items-start gap-3 lg:hidden mb-4">
+          {/* Pomodoro on top */}
+          <Pomodoro />
+
+          {/* Crossfader in middle - compact width like desktop */}
+          <div className="w-full max-w-sm">
+            <Crossfader
+              crossfaderValue={crossfaderValue}
+              setCrossfaderValue={setCrossfaderValue}
+            />
+          </div>
+        </div>
+
+        {/* Player and title at bottom */}
         <div className="mb-3 sm:mb-4 text-left flex items-center gap-3">
           <span className="text-cream font-heading text-xl sm:text-2xl">radiotedu / {channel.name.toLowerCase()}</span>
           <span className="text-gold text-sm sm:text-base font-sans animate-pulse">
             on-air
           </span>
         </div>
-        <div className="mb-3 sm:mb-4">
+        <div className="mb-3 sm:mb-4 lg:mb-0">
           <Player crossfaderValue={crossfaderValue} streamUrl={currentStreamUrl} />
-        </div>
-
-        {/* Mobile: Stack utilities below player */}
-        <div className="flex flex-col items-center gap-3 md:hidden mt-4">
-          <Crossfader
-            crossfaderValue={crossfaderValue}
-            setCrossfaderValue={setCrossfaderValue}
-          />
-          <Pomodoro />
         </div>
       </footer>
 
-      {/* Desktop: Fixed positioned utilities */}
-      <div className="hidden md:block fixed bottom-4 left-1/2 transform -translate-x-1/2 z-20">
+      {/* Desktop only (1024px+): Fixed positioned utilities */}
+      <div className="hidden lg:block fixed bottom-4 left-1/2 transform -translate-x-1/2 z-20">
         <Crossfader
           crossfaderValue={crossfaderValue}
           setCrossfaderValue={setCrossfaderValue}
         />
       </div>
 
-      <div className="hidden md:block fixed bottom-4 right-4 z-20">
+      <div className="hidden lg:block fixed bottom-4 right-4 z-20">
         <Pomodoro />
       </div>
 

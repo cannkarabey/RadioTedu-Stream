@@ -425,6 +425,8 @@ body {
 /* Nature sounds panel - classical styling */
 .nature-sounds-panel {
   width: 320px;
+  max-height: calc(100vh - 280px);
+  overflow-y: auto;
   background: rgba(26, 26, 31, 0.92);
   backdrop-filter: blur(8px);
   border: 1px solid var(--border-subtle);
@@ -861,23 +863,43 @@ body {
 
   /* Pomodoro - smaller scale */
   .pomodoro-panel {
-    width: 160px;
-    padding: 6px 8px;
+    width: 140px;
+    padding: 4px 6px;
+    transform: scale(0.9);
+    transform-origin: center center;
   }
 
   .pomodoro-panel svg {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
+  }
+
+  /* Header buttons more compact */
+  .channel-btn {
+    padding: 3px 8px;
+    font-size: 10px;
   }
 }
 
 /* Very small screens (360px) */
 @media (max-width: 360px) {
   .crossfader-container {
-    min-width: 200px;
+    min-width: 160px;
+    padding: 6px 8px;
   }
 
   .nature-sounds-panel {
-    width: 240px;
+    width: 220px;
+    padding: 8px 10px;
+  }
+
+  .pomodoro-panel {
+    width: 120px;
+    transform: scale(0.85);
+  }
+
+  .channel-btn {
+    padding: 2px 6px;
+    font-size: 9px;
   }
 }
