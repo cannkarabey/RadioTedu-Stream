@@ -420,7 +420,7 @@ export default function Pomodoro() {
       {/* Timer display */}
       <div className="flex items-center gap-3">
         <div className="relative">
-          <svg width="70" height="70" viewBox="0 0 36 36" className="-rotate-90">
+          <svg width="70" height="70" viewBox="0 0 36 36" className="timer-circle -rotate-90">
             <circle
               cx="18" cy="18" r="16"
               stroke="var(--icon-color)"

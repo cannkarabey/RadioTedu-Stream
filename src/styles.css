@@ -309,6 +309,21 @@ body {
   animation: fade-in 0.3s ease;
 }
 
+/* Force all inline SVGs in pomodoro panel to respect size - Opera fix */
+.pomodoro-panel svg:not(.timer-circle) {
+  max-width: 14px;
+  max-height: 14px;
+  flex-shrink: 0;
+}
+
+/* Timer circle should maintain its size */
+.pomodoro-panel .timer-circle {
+  max-width: 70px;
+  max-height: 70px;
+  width: 70px;
+  height: 70px;
+}
+
 .pomodoro-toggle {
   background: rgba(26, 26, 31, 0.8);
   border: 1px solid var(--warm-gray);
@@ -333,11 +348,23 @@ body {
   color: var(--warm-gray);
   width: 20px;
   height: 20px;
+  min-width: 20px;
+  min-height: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 4px;
   transition: all 0.25s ease;
+  overflow: hidden;
+}
+
+/* Force icon sizes for Opera/cross-browser compatibility */
+.pomodoro-panel .icon-btn svg {
+  width: 9px !important;
+  height: 9px !important;
+  max-width: 9px !important;
+  max-height: 9px !important;
+  flex-shrink: 0;
 }
 
 .pomodoro-panel .icon-btn:hover {
@@ -375,11 +402,23 @@ body {
   color: var(--cream);
   width: 26px;
   height: 26px;
+  min-width: 26px;
+  min-height: 26px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 4px;
   transition: all 0.25s ease;
+  overflow: hidden;
+}
+
+/* Force icon sizes for Opera/cross-browser compatibility */
+.control-btn svg {
+  width: 10px !important;
+  height: 10px !important;
+  max-width: 10px !important;
+  max-height: 10px !important;
+  flex-shrink: 0;
 }
 
 .control-btn:hover {
