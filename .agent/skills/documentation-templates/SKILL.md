@@ -14,7 +14,7 @@ allowed-tools: Read, Glob, Grep
 
 ### Essential Sections (Priority Order)
 
-| Section | Purpose |
+| Section | Purpose |   
 |---------|---------|
 | **Title + One-liner** | What is this? |
 | **Quick Start** | Running in <5 min |

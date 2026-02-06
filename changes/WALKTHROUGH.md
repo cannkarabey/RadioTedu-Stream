@@ -42,7 +42,7 @@ Bu belge, RadioTedu Stream projesinde yapılan responsive UI düzeltmelerini öz
 
 ---
 
-## 📁 Değiştirilen Dosyalar
+## 📁 Değiştirilen Dosyalar 
 
 - `src/App.jsx` - Header, footer ve container düzeltmeleri
 - `src/styles.css` - Media query iyileştirmeleri
