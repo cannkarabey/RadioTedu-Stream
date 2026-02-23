@@ -18,6 +18,7 @@ export default function Background({ mediaFile, isImage = false }) {
     <video
       ref={videoRef}
       className="fixed inset-0 w-full h-full object-cover video-filter"
+      style={{ objectPosition: 'right center' }}
       src={mediaFile}
       autoPlay
       muted
