@@ -17,13 +17,13 @@ export default function Crossfader({ crossfaderValue, setCrossfaderValue }) {
   const naturePercentage = crossfaderValue
 
   return (
-    <div className="crossfader-container">
+    <div className="crossfader-container" style={{ transform: 'scale(1.1)', transformOrigin: 'bottom center' }}>
       {/* Labels */}
       <div className="crossfader-labels">
         <span className="crossfader-label left">Just Music</span>
         <span className="crossfader-label right">Just Nature</span>
       </div>
-      
+
       {/* Crossfader Slider */}
       <div className="crossfader-slider-wrapper">
         <input
@@ -34,19 +34,19 @@ export default function Crossfader({ crossfaderValue, setCrossfaderValue }) {
           onChange={handleCrossfaderChange}
           className="crossfader-slider"
         />
-        
+
         {/* Center indicator */}
         <div className="crossfader-center-mark"></div>
       </div>
-      
+
       {/* Percentage Display */}
       <div className="crossfader-percentages">
         <span className="crossfader-percentage music">
           {musicPercentage}%
         </span>
-        
+
         {/* Reset Button - Yüzdelerin ortasında */}
-        <button 
+        <button
           onClick={resetToCenter}
           className="crossfader-reset-btn"
           title="Reset to 50/50"
@@ -54,7 +54,7 @@ export default function Crossfader({ crossfaderValue, setCrossfaderValue }) {
           <RotateCcw size={12} />
           <span className="reset-text">reset</span>
         </button>
-        
+
         <span className="crossfader-percentage nature">
           {naturePercentage}%
         </span>
