@@ -296,7 +296,9 @@ body {
 
 /* Pomodoro styles - classical elegance */
 .pomodoro-panel {
-  width: 200px;
+  width: 240px;
+  min-width: 240px;
+  flex-shrink: 0;
   background: rgba(26, 26, 31, 0.9);
   backdrop-filter: blur(8px);
   border: 1px solid var(--border-subtle);
@@ -429,19 +431,23 @@ body {
 @keyframes fade-in {
   from {
     opacity: 0;
-    transform: translateY(8px);
   }
 
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
-@media (max-width: 520px) {
+/* ==========================================
+   RESPONSIVE DESIGN
+   ========================================== 
+   Desktop breakpoint (1024px)   
+   ========================================== 
+*/
+@media (min-width: 1024px) {
   .pomodoro-panel {
-    width: 180px;
-    padding: 8px 10px;
+    transform: scale(1.30);
+    transform-origin: bottom right;
   }
 }
 
@@ -843,10 +849,11 @@ body {
 }
 
 /* ==========================================
-   RESPONSIVE DESIGN - Mobile First Approach
-   ========================================== */
-
-/* Tablet breakpoint (768px) */
+   RESPONSIVE DESIGN
+   ========================================== 
+   Tablet breakpoint (768px)   
+   ========================================== 
+*/
 @media (max-width: 768px) {
 
   /* Nature panel - narrower on tablet */
@@ -868,7 +875,13 @@ body {
   }
 }
 
-/* Mobile breakpoint (480px) */
+/* ==========================================
+   RESPONSIVE DESIGN
+   ========================================== 
+   Mobile breakpoint (480px)   
+   ========================================== 
+*/
+
 @media (max-width: 480px) {
 
   /* Header - tighter spacing */
@@ -900,17 +913,9 @@ body {
     height: 16px;
   }
 
-  /* Pomodoro - smaller scale */
+  /* Pomodoro - consistent size on mobile */
   .pomodoro-panel {
-    width: 140px;
-    padding: 4px 6px;
-    transform: scale(0.9);
-    transform-origin: center center;
-  }
-
-  .pomodoro-panel svg {
-    width: 50px;
-    height: 50px;
+    transform: scale(1);
   }
 
   /* Header buttons more compact */
@@ -933,8 +938,7 @@ body {
   }
 
   .pomodoro-panel {
-    width: 120px;
-    transform: scale(0.85);
+    transform: scale(1);
   }
 
   .channel-btn {

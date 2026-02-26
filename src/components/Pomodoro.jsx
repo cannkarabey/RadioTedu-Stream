@@ -281,7 +281,7 @@ export default function Pomodoro() {
   }
 
   return (
-    <div className="pomodoro-panel" style={{ width: showSettings ? '280px' : '240px', minWidth: '240px', transform: 'scale(1.30)', transformOrigin: 'bottom right' }}>
+    <div className="pomodoro-panel" style={{ width: showSettings ? '280px' : '240px', minWidth: '240px' }}>
 
       {/* Header with mode-based background color */}
       <div

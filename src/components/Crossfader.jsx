@@ -17,7 +17,7 @@ export default function Crossfader({ crossfaderValue, setCrossfaderValue }) {
   const naturePercentage = crossfaderValue
 
   return (
-    <div className="crossfader-container" style={{ transform: 'scale(1.1)', transformOrigin: 'bottom center' }}>
+    <div className="crossfader-container">
       {/* Labels */}
       <div className="crossfader-labels">
         <span className="crossfader-label left">Just Music</span>
