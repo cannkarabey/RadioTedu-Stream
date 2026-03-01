@@ -1,7 +1,9 @@
-import React from 'react'
-import { RotateCcw } from 'lucide-react'
+import React, { useState } from 'react'
+import { RotateCcw, Sliders, ChevronDown } from 'lucide-react'
 
 export default function Crossfader({ crossfaderValue, setCrossfaderValue }) {
+  const [closed, setClosed] = useState(false)
+
   const handleCrossfaderChange = (e) => {
     const value = parseInt(e.target.value)
     setCrossfaderValue(value)
@@ -16,12 +18,38 @@ export default function Crossfader({ crossfaderValue, setCrossfaderValue }) {
   const musicPercentage = 100 - crossfaderValue
   const naturePercentage = crossfaderValue
 
+  // Compact mode — sadece yüzdeleri ve açma butonunu göster
+  if (closed) {
+    return (
+      <button
+        onClick={() => setClosed(false)}
+        className="crossfader-compact"
+        title="Expand crossfader"
+      >
+        <Sliders size={14} className="crossfader-compact-icon" />
+        <span className="crossfader-compact-label">🎵 {musicPercentage}%</span>
+        <span className="crossfader-compact-divider">|</span>
+        <span className="crossfader-compact-label">🌿 {naturePercentage}%</span>
+        <ChevronDown size={12} className="crossfader-compact-chevron" />
+      </button>
+    )
+  }
+
   return (
     <div className="crossfader-container">
-      {/* Labels */}
-      <div className="crossfader-labels">
-        <span className="crossfader-label left">Just Music</span>
-        <span className="crossfader-label right">Just Nature</span>
+      {/* Header with close button */}
+      <div className="crossfader-header">
+        <div className="crossfader-labels">
+          <span className="crossfader-label left">Just Music</span>
+          <span className="crossfader-label right">Just Nature</span>
+        </div>
+        <button
+          onClick={() => setClosed(true)}
+          className="crossfader-close-btn"
+          title="Minimize crossfader"
+        >
+          ✕
+        </button>
       </div>
 
       {/* Crossfader Slider */}
