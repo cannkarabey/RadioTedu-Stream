@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { FaTimes, FaPlay, FaPause, FaSync, FaClock, FaPlus, FaMinus, FaVolumeUp, FaVolumeMute, FaBook, FaCoffee, FaBell } from 'react-icons/fa'
+import { ChevronUp } from 'lucide-react'
 
-const DEFAULT_FOCUS = 25
-const DEFAULT_BREAK = 5
+const DEFAULT_FOCUS = 50
+const DEFAULT_BREAK = 10
 const MIN_TIME = 1
 const MAX_TIME = 120
 
@@ -267,15 +268,29 @@ export default function Pomodoro() {
   const progress = calculateProgress()
   const { mins, secs } = formatTime(secondsLeft)
 
-  // Minimized state
+  // Compact mode — show phase, timer, and session count
   if (closed) {
     return (
       <button
         aria-label="Open Pomodoro"
         onClick={() => setClosed(false)}
-        className="pomodoro-toggle text-xs"
+        className="pomodoro-compact"
       >
-        <FaClock size={14} />
+        <span className="pomodoro-compact-phase">
+          {phase === 'focus' ? '📚' : '☕'}
+        </span>
+        <span className="pomodoro-compact-label">
+          {phase === 'focus' ? 'Focus' : 'Break'}
+        </span>
+        <span className="pomodoro-compact-divider">|</span>
+        <span className={`pomodoro-compact-timer ${alarmActive ? 'alarm' : ''}`}>
+          {mins}:{secs}
+        </span>
+        {running && <span className="pomodoro-compact-status">▶</span>}
+        {alarmActive && <span className="pomodoro-compact-status alarm">🔔</span>}
+        <span className="pomodoro-compact-divider">|</span>
+        <span className="pomodoro-compact-count">🍅 {focusCount}</span>
+        <ChevronUp size={12} className="pomodoro-compact-chevron" />
       </button>
     )
   }
