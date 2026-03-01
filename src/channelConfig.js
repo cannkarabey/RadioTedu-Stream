@@ -15,7 +15,7 @@ export const CHANNELS = {
         background: 'new_lofi.mp4',
         isImage: false,
         theme: 'lofi',
-        focusPoint: 'center center'
+        focusPoint: 'center'
     },
     classical: {
         id: 'classical',
@@ -24,7 +24,7 @@ export const CHANNELS = {
         background: 'new_classical.mp4',
         isImage: false,
         theme: 'classical',
-        focusPoint: '30% center'
+        focusPoint: '35% center'
     }
 }
 

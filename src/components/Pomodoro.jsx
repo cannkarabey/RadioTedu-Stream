@@ -13,7 +13,7 @@ export default function Pomodoro() {
   const [phase, setPhase] = useState('focus') // 'focus' | 'break'
   const [secondsLeft, setSecondsLeft] = useState(DEFAULT_FOCUS * 60)
   const [running, setRunning] = useState(false)
-  const [closed, setClosed] = useState(false)
+  const [closed, setClosed] = useState(() => window.innerWidth < 1024)
   const [showSettings, setShowSettings] = useState(false)
   const [soundEnabled, setSoundEnabled] = useState(true)
   const [focusCount, setFocusCount] = useState(0)
@@ -277,7 +277,7 @@ export default function Pomodoro() {
         className="pomodoro-compact"
       >
         <span className="pomodoro-compact-phase">
-          {phase === 'focus' ? '📚' : '☕'}
+          {phase === 'focus' ? <FaBook size={12} /> : <FaCoffee size={12} />}
         </span>
         <span className="pomodoro-compact-label">
           {phase === 'focus' ? 'Focus' : 'Break'}
@@ -286,10 +286,10 @@ export default function Pomodoro() {
         <span className={`pomodoro-compact-timer ${alarmActive ? 'alarm' : ''}`}>
           {mins}:{secs}
         </span>
-        {running && <span className="pomodoro-compact-status">▶</span>}
-        {alarmActive && <span className="pomodoro-compact-status alarm">🔔</span>}
+        {running && <span className="pomodoro-compact-status"><FaPlay size={8} /></span>}
+        {alarmActive && <span className="pomodoro-compact-status alarm"><FaBell size={10} /></span>}
         <span className="pomodoro-compact-divider">|</span>
-        <span className="pomodoro-compact-count">🍅 {focusCount}</span>
+        <span className="pomodoro-compact-count"><FaClock size={10} /> {focusCount}</span>
         <ChevronUp size={12} className="pomodoro-compact-chevron" />
       </button>
     )
@@ -433,7 +433,32 @@ export default function Pomodoro() {
       )}
 
       {/* Timer display */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 justify-center">
+        {/* Controls — left side */}
+        <div className="flex flex-col gap-1">
+          {/* Alarm active - show dismiss button */}
+          {alarmActive ? (
+            <button
+              onClick={dismissAlarm}
+              className="control-btn animate-pulse px-3"
+              style={{ background: 'rgba(255, 107, 107, 0.3)', borderColor: '#ff6b6b', minWidth: '50px' }}
+              title="Dismiss alarm"
+            >
+              <FaBell size={12} />
+            </button>
+          ) : (
+            <div className="flex gap-1">
+              <button onClick={toggleRun} className="control-btn" aria-label={running ? 'Pause' : 'Start'}>
+                {running ? <FaPause size={10} /> : <FaPlay size={10} />}
+              </button>
+              <button onClick={reset} className="control-btn" aria-label="Reset">
+                <FaSync size={10} />
+              </button>
+            </div>
+          )}
+        </div>
+
+        {/* Timer circle — right side */}
         <div className="relative">
           <svg width="70" height="70" viewBox="0 0 36 36" className="timer-circle -rotate-90">
             <circle
@@ -456,30 +481,6 @@ export default function Pomodoro() {
           <div className={`absolute inset-0 flex items-center justify-center text-[14px] font-mono select-none ${alarmActive ? 'animate-pulse text-red-400' : ''}`}>
             {mins}:{secs}
           </div>
-        </div>
-
-        {/* Controls */}
-        <div className="flex flex-col gap-1">
-          {/* Alarm active - show dismiss button */}
-          {alarmActive ? (
-            <button
-              onClick={dismissAlarm}
-              className="control-btn animate-pulse px-3"
-              style={{ background: 'rgba(255, 107, 107, 0.3)', borderColor: '#ff6b6b', minWidth: '50px' }}
-              title="Dismiss alarm"
-            >
-              <FaBell size={12} />
-            </button>
-          ) : (
-            <div className="flex gap-1">
-              <button onClick={toggleRun} className="control-btn" aria-label={running ? 'Pause' : 'Start'}>
-                {running ? <FaPause size={10} /> : <FaPlay size={10} />}
-              </button>
-              <button onClick={reset} className="control-btn" aria-label="Reset">
-                <FaSync size={10} />
-              </button>
-            </div>
-          )}
         </div>
       </div>
 

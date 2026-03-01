@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { RotateCcw, Sliders, ChevronDown } from 'lucide-react'
+import { RotateCcw, Sliders, ChevronDown, Music, Leaf } from 'lucide-react'
 
 export default function Crossfader({ crossfaderValue, setCrossfaderValue }) {
-  const [closed, setClosed] = useState(false)
+  const [closed, setClosed] = useState(() => window.innerWidth < 1024)
 
   const handleCrossfaderChange = (e) => {
     const value = parseInt(e.target.value)
@@ -27,9 +27,9 @@ export default function Crossfader({ crossfaderValue, setCrossfaderValue }) {
         title="Expand crossfader"
       >
         <Sliders size={14} className="crossfader-compact-icon" />
-        <span className="crossfader-compact-label">🎵 {musicPercentage}%</span>
+        <span className="crossfader-compact-label"><Music size={12} /> {musicPercentage}%</span>
         <span className="crossfader-compact-divider">|</span>
-        <span className="crossfader-compact-label">🌿 {naturePercentage}%</span>
+        <span className="crossfader-compact-label"><Leaf size={12} /> {naturePercentage}%</span>
         <ChevronDown size={12} className="crossfader-compact-chevron" />
       </button>
     )

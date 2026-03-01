@@ -47,7 +47,7 @@ export default function App() {
       {/* Top header */}
       <header className="relative z-10 flex flex-col sm:flex-row sm:justify-between items-start gap-3 sm:gap-0 p-4 sm:p-6">
         {/* Top left - channel switcher and controls */}
-        <div className="flex flex-col items-start gap-3">
+        <div className="flex flex-col items-start gap-3 max-w-[60%] sm:max-w-none">
           {/* Channel Switcher */}
           <ChannelSwitcher
             currentChannel={currentChannel}
@@ -69,8 +69,8 @@ export default function App() {
           />
         </div>
 
-        {/* Top right - social icons */}
-        <div className="flex flex-col items-end gap-1 sm:gap-2">
+        {/* Top right - social icons: absolute on mobile, normal flow on sm+ */}
+        <div className="absolute top-4 right-4 sm:static sm:top-auto sm:right-auto flex flex-col items-end gap-1 sm:gap-2">
           <div className="flex items-center gap-2 sm:gap-4">
             <div className="flex items-center gap-2 sm:gap-3 text-lg sm:text-xl">
               <a href="https://facebook.com/radiotedu" target="_blank" rel="noreferrer" className="icon-glow">
@@ -110,8 +110,7 @@ export default function App() {
 
           {/* Beta notice - hidden on mobile */}
           <div className="hidden sm:block text-[11px] sm:text-sm leading-snug text-right opacity-90 max-w-[260px] font-mono">
-            <span className="uppercase tracking-widest text-yellow-300 mr-2 text-[12px] sm:text-sm font-bold">beta</span>
-            <div className="inline text-glow-subtle">any recommendations? send an email us! <a href="mailto:radio@tedu.edu.tr" className="underline hover:text-glow-ui">radio@tedu.edu.tr</a></div>
+            <div className="inline text-glow-subtle">Contact us for any recommendations! <a href="mailto:radio@tedu.edu.tr" className="underline hover:text-glow-ui">radio@tedu.edu.tr</a></div>
           </div>
         </div>
       </header>
