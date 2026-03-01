@@ -151,12 +151,21 @@ html,
 body,
 #root {
   height: 100%;
+  overflow: hidden;
 }
 
 body {
   background: var(--bg-dark);
   font-family: 'Lato', system-ui, sans-serif;
   color: var(--cream);
+  overflow: hidden;
+}
+
+/* Mobile viewport: use dvh for dynamic viewport height (accounts for mobile browser bars) */
+@supports (height: 100dvh) {
+  .h-dvh {
+    height: 100dvh !important;
+  }
 }
 
 /* Elegant text styles - NO glow effects */

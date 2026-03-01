@@ -38,16 +38,16 @@ export default function App() {
   }
 
   return (
-    <div className="relative min-h-screen flex flex-col bg-bg-dark font-sans text-cream">
+    <div className="relative h-dvh flex flex-col bg-bg-dark font-sans text-cream overflow-hidden">
       <VideoBackground mediaFile={currentBackground} isImage={isImage} focusPoint={channel.focusPoint} />
 
       {/* Dark overlay */}
       <div className="absolute inset-0 bg-bg-dark/60"></div>
 
       {/* Top header */}
-      <header className="relative z-10 flex flex-col sm:flex-row sm:justify-between items-start gap-3 sm:gap-0 p-4 sm:p-6">
+      <header className="relative z-10 flex flex-col sm:flex-row sm:justify-between items-start gap-2 sm:gap-0 p-3 sm:p-6 flex-shrink-0">
         {/* Top left - channel switcher and controls */}
-        <div className="flex flex-col items-start gap-3 max-w-[60%] sm:max-w-none">
+        <div className="flex flex-col items-start gap-2 max-w-[60%] sm:max-w-none">
           {/* Channel Switcher */}
           <ChannelSwitcher
             currentChannel={currentChannel}
@@ -116,10 +116,10 @@ export default function App() {
       </header>
 
       {/* Bottom player area */}
-      <footer className="relative lg:absolute lg:bottom-0 lg:left-0 lg:right-0 z-10 p-4 sm:p-6 mt-auto">
+      <footer className="relative lg:absolute lg:bottom-0 lg:left-0 lg:right-0 z-10 p-3 sm:p-6 mt-auto flex-shrink-0">
 
         {/* Mobile/Tablet: Stack utilities ABOVE player - left aligned like player */}
-        <div className="flex flex-col items-start gap-3 lg:hidden mb-4">
+        <div className="flex flex-col items-start gap-2 lg:hidden mb-2">
           {/* Pomodoro on top */}
           <Pomodoro />
 
@@ -133,13 +133,13 @@ export default function App() {
         </div>
 
         {/* Player and title at bottom */}
-        <div className="mb-3 sm:mb-4 text-left flex items-center gap-3">
+        <div className="mb-2 sm:mb-4 text-left flex items-center gap-3">
           <span className="text-cream font-heading text-xl sm:text-2xl">radiotedu / {channel.name.toLowerCase()}</span>
           <span className="text-gold text-sm sm:text-base font-sans animate-pulse">
             on-air
           </span>
         </div>
-        <div className="mb-3 sm:mb-4 lg:mb-0">
+        <div className="mb-1 sm:mb-4 lg:mb-0">
           <Player crossfaderValue={crossfaderValue} streamUrl={currentStreamUrl} />
         </div>
       </footer>

@@ -6,7 +6,7 @@ export const CHANNELS = {
         background: 'new_jazz.mp4',
         isImage: false,
         theme: 'jazz',
-        focusPoint: 'center'
+        focusPoint: '70% center'
     },
     lofi: {
         id: 'lofi',
