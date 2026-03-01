@@ -39,7 +39,7 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen flex flex-col bg-bg-dark font-sans text-cream">
-      <VideoBackground mediaFile={currentBackground} isImage={isImage} />
+      <VideoBackground mediaFile={currentBackground} isImage={isImage} focusPoint={channel.focusPoint} />
 
       {/* Dark overlay */}
       <div className="absolute inset-0 bg-bg-dark/60"></div>

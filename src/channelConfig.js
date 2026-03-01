@@ -5,7 +5,8 @@ export const CHANNELS = {
         streamUrl: 'https://stream.radiotedu.com/cazz',
         background: 'new_jazz.mp4',
         isImage: false,
-        theme: 'jazz'
+        theme: 'jazz',
+        focusPoint: 'center'
     },
     lofi: {
         id: 'lofi',
@@ -13,15 +14,17 @@ export const CHANNELS = {
         streamUrl: 'https://stream.radiotedu.com/lofi',
         background: 'new_lofi.mp4',
         isImage: false,
-        theme: 'lofi'
+        theme: 'lofi',
+        focusPoint: 'center center'
     },
     classical: {
         id: 'classical',
         name: 'Classical',
-        streamUrl: 'https://stream.radiotedu.com/classical',
+        streamUrl: 'https://stream.radiotedu.com/classic',
         background: 'new_classical.mp4',
         isImage: false,
-        theme: 'classical'
+        theme: 'classical',
+        focusPoint: '30% center'
     }
 }
 

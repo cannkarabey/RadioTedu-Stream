@@ -1,14 +1,14 @@
 import React, { useRef } from 'react'
 
-export default function Background({ mediaFile, isImage = false }) {
+export default function Background({ mediaFile, isImage = false, focusPoint = 'center center' }) {
   const videoRef = useRef(null)
 
   // If image, show image background
   if (isImage) {
     return (
       <div
-        className="fixed inset-0 w-full h-full bg-cover bg-center bg-no-repeat video-filter"
-        style={{ backgroundImage: `url(${mediaFile})` }}
+        className="fixed inset-0 w-full h-full bg-cover bg-no-repeat video-filter"
+        style={{ backgroundImage: `url(${mediaFile})`, backgroundPosition: focusPoint }}
       />
     )
   }
@@ -18,7 +18,7 @@ export default function Background({ mediaFile, isImage = false }) {
     <video
       ref={videoRef}
       className="fixed inset-0 w-full h-full object-cover video-filter"
-      style={{ objectPosition: 'right center' }}
+      style={{ objectPosition: focusPoint }}
       src={mediaFile}
       autoPlay
       muted
